@@ -13,7 +13,7 @@ export async function InteriorHeader() {
         <TrackedLink event="streaming_click" platform="Spotify" className="platform-link" href={artist.spotifyUrl} aria-label="Spotify" title="Spotify" target="_blank" rel="noreferrer"><PlatformIcon platform="spotify" /></TrackedLink>
         <TrackedLink event="streaming_click" platform="Apple Music" className="platform-link" href={artist.appleMusicUrl} aria-label="Apple Music" title="Apple Music" target="_blank" rel="noreferrer"><PlatformIcon platform="apple-music" /></TrackedLink>
       </div>
-      <MobileMenu spotifyUrl={artist.spotifyUrl} appleMusicUrl={artist.appleMusicUrl} />
+      <MobileMenu />
     </header>
   );
 }

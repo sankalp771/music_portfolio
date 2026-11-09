@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { getReleaseBySlug, getReleases } from "@/lib/content";
 import { ReleaseDetail, releaseMetadata } from "../ReleaseDetail";
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const releases = await getReleases();
   return releases.filter((release) => release.slug !== "jyot").map((release) => ({ slug: release.slug }));

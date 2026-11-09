@@ -31,7 +31,7 @@ export default async function Home() {
           <TrackedLink event="streaming_click" platform="Spotify" className="platform-link" href={artist.spotifyUrl} aria-label="Spotify" title="Spotify" target="_blank" rel="noreferrer"><PlatformIcon platform="spotify" /></TrackedLink>
           <TrackedLink event="streaming_click" platform="Apple Music" className="platform-link" href={artist.appleMusicUrl} aria-label="Apple Music" title="Apple Music" target="_blank" rel="noreferrer"><PlatformIcon platform="apple-music" /></TrackedLink>
         </div>
-        <MobileMenu spotifyUrl={artist.spotifyUrl} appleMusicUrl={artist.appleMusicUrl} />
+        <MobileMenu />
       </header>
 
       <section className="hero" id="top" aria-labelledby="hero-title" style={artist.heroImageUrl ? { backgroundImage: `linear-gradient(90deg,rgba(7,7,8,.72),rgba(7,7,8,.12)),linear-gradient(0deg,#090909 0%,transparent 18%),url("${artist.heroImageUrl}")` } : undefined}>
@@ -89,7 +89,7 @@ export default async function Home() {
         <div className="section-wrap connect-inner">
           <p className="eyebrow">03 — Stay close</p>
           <h2>Follow the<br /><em>feeling.</em></h2>
-          <div className="connect-bottom"><p>Official artist profiles and music.</p><div className="connect-links"><TrackedLink event="streaming_click" platform="Spotify" className="button button-light" href={artist.spotifyUrl} target="_blank" rel="noreferrer">Spotify <span>↗</span></TrackedLink><TrackedLink event="streaming_click" platform="Apple Music" className="button button-outline" href={artist.appleMusicUrl} target="_blank" rel="noreferrer">Apple Music <span>↗</span></TrackedLink><TrackedLink event="social_click" platform="Instagram" className="button button-outline" href={artist.instagramUrl} target="_blank" rel="noreferrer">Instagram <span>↗</span></TrackedLink></div></div>
+          <div className="connect-bottom"><p>Official artist profiles and music.</p><div className="connect-links"><TrackedLink event="streaming_click" platform="Spotify" className="button button-light" href={artist.spotifyUrl} target="_blank" rel="noreferrer">Listen on Spotify <span>↗</span></TrackedLink></div></div>
         </div>
       </section>
 

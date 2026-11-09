@@ -14,7 +14,7 @@ export const releaseSchema = defineType({
       const count = await client.fetch<number>("count(*[_type == $type && slug.current == $slug && _id != $draft])", params);
       return count === 0 ? true : "This slug is already in use";
     }) }),
-    defineField({ name: "releaseType", title: "Release type", type: "string", options: { list: [{ title: "Single", value: "single" }, { title: "EP", value: "ep" }, { title: "Album", value: "album" }, { title: "Collaboration", value: "collaboration" }] }, validation: (rule) => rule.required() }),
+    defineField({ name: "releaseType", title: "Release type", type: "string", options: { list: [{ title: "Single", value: "single" }, { title: "Album", value: "album" }, { title: "2-Pack", value: "2-pack" }] }, validation: (rule) => rule.required() }),
     defineField({ name: "releaseDate", title: "Release date", type: "date", validation: (rule) => rule.required() }),
     defineField({ name: "displayOrder", title: "Discography order", type: "number", description: "Optional order for the public discography; lower numbers appear first.", validation: (rule) => rule.integer().min(1) }),
     defineField({ name: "coverArt", title: "Cover artwork", type: "image", options: { hotspot: true }, validation: (rule) => rule.required(), fields: [{ name: "alt", title: "Alt text", type: "string", validation: (rule) => rule.required() }] }),

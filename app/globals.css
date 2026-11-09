@@ -58,3 +58,67 @@
 .mobile-platforms .platform-link{width:auto;height:42px;padding:0 12px;border-radius:3px;gap:8px;font-size:10px;letter-spacing:.04em}
 .mobile-platforms .platform-mark{width:17px;height:17px}
 @media(max-width:760px){.header-platforms{display:none}.mobile-platforms{display:flex}}
+
+/* Mobile refinements: keep the main actions and type clear on compact screens. */
+@media(max-width:760px){
+  .site-header,.interior-header{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
+  .mobile-menu{z-index:12}
+  .menu-toggle{width:46px;height:46px;touch-action:manipulation}
+  .mobile-nav.is-open{top:calc(100% + 1px);right:0;max-height:calc(100svh - 90px);overflow-y:auto;overscroll-behavior:contain}
+  .mobile-nav a{min-height:52px;touch-action:manipulation}
+  .hero{height: min(860px, 100svh);min-height:620px;max-height:none;background-position:58% center}
+  .hero:before{background:linear-gradient(90deg,rgba(7,7,8,.7),rgba(7,7,8,.19) 85%),linear-gradient(0deg,#090909 0%,transparent 23%)}
+  .hero-copy{top:28%;}
+  .hero h1{font-size:clamp(76px,19vw,145px);line-height:.78;margin:32px 0 30px;}
+  .hero-bottom>p{font-size:clamp(14px,4vw,17px)}
+  .hero-actions{gap:17px}
+  .hero-actions .button{min-height:48px}
+  .hero-index{bottom:max(22px,env(safe-area-inset-bottom))}
+  .section-wrap{padding-left:6%;padding-right:6%}
+  .release-section{padding-top:64px;padding-bottom:70px}
+  .release-info h2{font-size:clamp(52px,13vw,74px);overflow-wrap:anywhere}
+  .release-links{gap:14px}
+  .release-meta{gap:14px;flex-wrap:wrap}
+  .connect-section{padding:64px 0}
+  .connect-section h2{font-size:clamp(64px,15vw,112px);margin:44px 0}
+  .connect-links .button{min-height:48px}
+  .interior-content{width:88%;margin-top:62px;margin-bottom:70px}
+  .interior-content h1{font-size:clamp(60px,16vw,112px);overflow-wrap:anywhere}
+  .interior-intro{margin-bottom:36px}
+  .interior-footer{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
+  .discography-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 13px}
+  .discography-meta strong{font-size:clamp(19px,5vw,26px);overflow-wrap:anywhere}
+  .discography-meta>span:last-child{font-size:8px;line-height:1.5}
+  .release-detail{width:88%;margin-top:36px;margin-bottom:65px}
+  .release-detail-grid{gap:24px;margin-top:22px}
+  .release-detail-copy h1{font-size:clamp(54px,14vw,88px);line-height:.86;overflow-wrap:anywhere}
+  .detail-actions .button{min-height:48px}
+  .breadcrumbs{flex-wrap:wrap;row-gap:8px;line-height:1.5}
+  .related-releases a{font-size:18px}
+}
+@media(max-width:380px){
+  .hero-copy{top:27%;}
+  .hero h1{font-size:18vw;}
+  .hero-actions .button{padding:0 14px;gap:18px}
+  .discography-grid{gap:16px 10px}
+  .discography-meta strong{font-size:19px}
+  .interior-footer{gap:14px;font-size:8px}
+  .site-footer{padding-left:6%;padding-right:6%}
+}
+@media(max-width:760px){
+  .site-header nav,.interior-header .desktop-nav{display:none!important}
+  .header-platforms{display:none!important}
+  .cover-art{width:100%;max-width:420px;margin-inline:auto}
+  .release-card{gap:26px}
+  .connect-links{width:auto}
+  .connect-links .button{min-width:190px;flex:0 1 auto}
+}
+@media(max-width:480px){
+  .discography-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .interior-header nav{display:none!important}
+}
+@media(max-width:760px){
+  .site-header,.interior-header{z-index:50}
+  .mobile-menu{position:relative;z-index:51}
+  .mobile-nav.is-open{display:flex!important;position:absolute;top:calc(100% + 8px);right:0;z-index:60;width:min(300px,84vw);background:#171515;border:1px solid rgba(240,237,231,.28);padding:10px 18px;box-shadow:0 20px 55px rgba(0,0,0,.8)}
+}
