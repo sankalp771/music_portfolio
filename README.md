@@ -25,6 +25,10 @@ The website reads published artist and release documents from Sanity and statica
 
 The schemas require a release title and slug, valid HTTPS URLs, an Artist reference, and cover artwork. Slugs are not checked for uniqueness. Choose Single, 2-Pack, EP, or Album. For 2-Packs, EPs, and Albums, add ordered tracks in the Tracklist field; each track has a dedicated page at `/music/{release-slug}/tracks/{track-slug}`. Draft content is excluded from public GROQ queries. Set `Discography order` to keep the public list in your preferred order. Release documents can manage descriptions, lyrics, streaming URLs, official video, and SEO overrides.
 
+### Instant published-content updates
+
+The app exposes `POST /api/revalidate` for signed Sanity webhooks. Set `SANITY_REVALIDATE_SECRET` to the same random secret in the app's local and production environment and the Sanity webhook configuration. In Sanity, create a webhook for the `production` dataset with method `POST`, URL `https://<your-domain>/api/revalidate`, events Create/Update/Delete, filter `_type in ["artist", "release"] && !(_id in path("drafts.**"))`, projection `{_type}`, and the shared secret. Publishing or deleting an Artist or Release then invalidates cached pages across the site.
+
 ## Search and analytics setup
 
 - Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS site origin. Canonicals and sitemap URLs are generated from it; without it the sitemap is empty and canonical tags are omitted.
