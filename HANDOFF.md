@@ -72,4 +72,5 @@ Chrome has a Next.js development overlay on `/studio` and the user reported the 
 - Existing stored `credits` data, if any, is left in Sanity; it is no longer edited or displayed by the site.
 - Added EP as a release type and added ordered nested track entries for 2-Packs, EPs, and Albums. Release pages display their tracklists; individual tracks have nested pages, metadata, and sitemap entries. Track entries support platform links, lyrics, and duration.
 - Fixed nested track page imports after user reported pages missing. The nested route now serves `/music/rooh-aur-dil/tracks/mashaal` and `/music/rooh-aur-dil/tracks/khuda`; both and the EP release page returned HTTP 200 locally on 2026-11-13.
+- Track pages now reuse the parent release artwork. Release tracklists use a vertical, numbered layout. Confirmed locally on the rooh aur dil EP and mashaal track page on 2026-11-14.
 4. When a production domain is chosen, set `NEXT_PUBLIC_SITE_URL`, production environment, production CORS origin, deploy, verify domain and submit sitemap.

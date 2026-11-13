@@ -55,7 +55,7 @@ export async function ReleaseDetail({ release }: { release: Release }) {
             {release.lyrics?.length ? <details className="lyrics"><summary>Lyrics</summary><div className="portable-copy"><PortableText value={release.lyrics} /></div></details> : null}
           </div>
         </div>
-        {release.tracks?.length ? <section className="related-releases"><p className="eyebrow">Tracklist · {release.tracks.length} tracks</p><div>{release.tracks.map((track, index) => <TrackedLink event="discography_click" platform={track.title} href={`/music/${release.slug}/tracks/${track.slug}`} key={`${track.slug}-${index}`}>{String(index + 1).padStart(2, "0")} · {track.title}<span>↗</span></TrackedLink>)}</div></section> : null}
+        {release.tracks?.length ? <section className="tracklist-section"><p className="eyebrow">Tracklist · {release.tracks.length} tracks</p><ol className="tracklist">{release.tracks.map((track, index) => <li key={`${track.slug}-${index}`}><span className="track-number">{String(index + 1).padStart(2, "0")}</span><TrackedLink event="discography_click" platform={track.title} href={`/music/${release.slug}/tracks/${track.slug}`}>{track.title}</TrackedLink><span className="track-arrow">↗</span></li>)}</ol></section> : null}
         {related.length ? <section className="related-releases"><p className="eyebrow">Keep listening</p><div>{related.map((item) => <TrackedLink event="discography_click" platform={item.title} href={`/music/${item.slug}`} key={item.id}>{item.title}<span>↗</span></TrackedLink>)}</div></section> : null}
       </section>
       <InteriorFooter />
