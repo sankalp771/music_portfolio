@@ -23,7 +23,7 @@ The website reads published artist and release documents from Sanity and statica
 4. Restart the site, sign into `/studio`, create one Artist document with slug `akash-bhai`, then create approved Release documents referencing that Artist.
 5. Mark the homepage release as featured. Upload approved cover art and alt text before publishing a release.
 
-The schemas require unique release slugs, valid HTTPS URLs, an Artist reference, and cover artwork. Draft content is excluded from public GROQ queries. Set `Discography order` to keep the public list in your preferred order. Release documents can manage descriptions, lyrics, credits, streaming URLs, official video, and SEO overrides.
+The schemas require a release title and slug, valid HTTPS URLs, an Artist reference, and cover artwork. Slugs are not checked for uniqueness. Choose Single, 2-Pack, EP, or Album. For 2-Packs, EPs, and Albums, add ordered tracks in the Tracklist field; each track has a dedicated page at `/music/{release-slug}/tracks/{track-slug}`. Draft content is excluded from public GROQ queries. Set `Discography order` to keep the public list in your preferred order. Release documents can manage descriptions, lyrics, streaming URLs, official video, and SEO overrides.
 
 ## Search and analytics setup
 
@@ -34,7 +34,7 @@ The schemas require unique release slugs, valid HTTPS URLs, an Artist reference,
 ## Content that still needs artist approval
 
 - Artist-approved portrait and biography.
-- Release context, credits, lyrics, and official video where available.
+- Release context, lyrics, and official video where available.
 - Approved business email and any future releases not already listed.
 - Final public domain and Search Console verification.
 

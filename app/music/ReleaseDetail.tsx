@@ -52,10 +52,10 @@ export async function ReleaseDetail({ release }: { release: Release }) {
               {!release.spotifyUrl && <TrackedLink event="streaming_click" platform="Spotify artist profile" className="button button-light" href={artist.spotifyUrl} target="_blank" rel="noreferrer">Spotify artist profile <span>↗</span></TrackedLink>}
               {!release.appleMusicUrl && <TrackedLink event="streaming_click" platform="Apple Music artist profile" className="button button-outline" href={artist.appleMusicUrl} target="_blank" rel="noreferrer">Apple Music profile <span>↗</span></TrackedLink>}
             </div>
-            {release.credits?.length ? <div className="release-credits"><h2>Credits</h2>{release.credits.map((credit) => <p key={`${credit.role}-${credit.name}`}><span>{credit.role}</span><span>{credit.name}</span></p>)}</div> : null}
             {release.lyrics?.length ? <details className="lyrics"><summary>Lyrics</summary><div className="portable-copy"><PortableText value={release.lyrics} /></div></details> : null}
           </div>
         </div>
+        {release.tracks?.length ? <section className="related-releases"><p className="eyebrow">Tracklist · {release.tracks.length} tracks</p><div>{release.tracks.map((track, index) => <TrackedLink event="discography_click" platform={track.title} href={`/music/${release.slug}/tracks/${track.slug}`} key={`${track.slug}-${index}`}>{String(index + 1).padStart(2, "0")} · {track.title}<span>↗</span></TrackedLink>)}</div></section> : null}
         {related.length ? <section className="related-releases"><p className="eyebrow">Keep listening</p><div>{related.map((item) => <TrackedLink event="discography_click" platform={item.title} href={`/music/${item.slug}`} key={item.id}>{item.title}<span>↗</span></TrackedLink>)}</div></section> : null}
       </section>
       <InteriorFooter />

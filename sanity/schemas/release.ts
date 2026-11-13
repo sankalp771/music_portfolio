@@ -6,15 +6,8 @@ export const releaseSchema = defineType({
   type: "document",
   fields: [
     defineField({ name: "title", title: "Release title", type: "string", validation: (rule) => rule.required().max(100) }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title", maxLength: 96 }, validation: (rule) => rule.required().custom(async (value, context) => {
-      if (!value?.current) return "A unique slug is required";
-      const { document, getClient } = context;
-      const client = getClient({ apiVersion: "2025-01-01" });
-      const params = { draft: document?._id?.replace(/^drafts\./, ""), slug: value.current, type: "release" };
-      const count = await client.fetch<number>("count(*[_type == $type && slug.current == $slug && _id != $draft])", params);
-      return count === 0 ? true : "This slug is already in use";
-    }) }),
-    defineField({ name: "releaseType", title: "Release type", type: "string", options: { list: [{ title: "Single", value: "single" }, { title: "Album", value: "album" }, { title: "2-Pack", value: "2-pack" }] }, validation: (rule) => rule.required() }),
+    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title", maxLength: 96 }, validation: (rule) => rule.required() }),
+    defineField({ name: "releaseType", title: "Release type", type: "string", options: { list: [{ title: "Single", value: "single" }, { title: "2-Pack", value: "2-pack" }, { title: "EP", value: "ep" }, { title: "Album", value: "album" }] }, validation: (rule) => rule.required() }),
     defineField({ name: "releaseDate", title: "Release date", type: "date", validation: (rule) => rule.required() }),
     defineField({ name: "displayOrder", title: "Discography order", type: "number", description: "Optional order for the public discography; lower numbers appear first.", validation: (rule) => rule.integer().min(1) }),
     defineField({ name: "coverArt", title: "Cover artwork", type: "image", options: { hotspot: true }, validation: (rule) => rule.required(), fields: [{ name: "alt", title: "Alt text", type: "string", validation: (rule) => rule.required() }] }),
@@ -24,7 +17,15 @@ export const releaseSchema = defineType({
     defineField({ name: "youtubeUrl", title: "Official video URL", type: "url", validation: (rule) => rule.uri({ scheme: ["https"] }) }),
     defineField({ name: "appleMusicUrl", title: "Release Apple Music URL", type: "url", validation: (rule) => rule.uri({ scheme: ["https"] }) }),
     defineField({ name: "otherStreamingUrls", title: "Other streaming links", type: "array", of: [{ type: "object", fields: [{ name: "label", title: "Platform", type: "string", validation: (rule) => rule.required() }, { name: "url", title: "URL", type: "url", validation: (rule) => rule.required().uri({ scheme: ["https"] }) }] }] }),
-    defineField({ name: "credits", title: "Credits", type: "array", of: [{ type: "object", fields: [{ name: "role", title: "Role", type: "string", validation: (rule) => rule.required() }, { name: "name", title: "Name", type: "string", validation: (rule) => rule.required() }] }] }),
+    defineField({ name: "tracks", title: "Tracklist", description: "Add tracks in album order. Each track gets its own page under this release.", type: "array", hidden: ({ parent }) => !["2-pack", "ep", "album"].includes(parent?.releaseType), validation: (rule) => rule.custom((value, context) => context.document?.releaseType === "2-pack" && value?.length !== 2 ? "A 2-Pack must contain exactly two tracks" : true), of: [{ type: "object", name: "track", fields: [
+      { name: "title", title: "Track title", type: "string", validation: (rule) => rule.required() },
+      { name: "slug", title: "Track slug", type: "slug", options: { source: "title" }, validation: (rule) => rule.required() },
+      { name: "spotifyUrl", title: "Spotify URL", type: "url", validation: (rule) => rule.uri({ scheme: ["https"] }) },
+      { name: "appleMusicUrl", title: "Apple Music URL", type: "url", validation: (rule) => rule.uri({ scheme: ["https"] }) },
+      { name: "youtubeUrl", title: "Official video URL", type: "url", validation: (rule) => rule.uri({ scheme: ["https"] }) },
+      { name: "lyrics", title: "Approved lyrics", type: "array", of: [{ type: "block" }] },
+      { name: "duration", title: "Duration (ISO 8601)", type: "string" },
+    ], preview: { select: { title: "title" } } }] }),
     defineField({ name: "lyrics", title: "Approved lyrics", type: "array", of: [{ type: "block" }] }),
     defineField({ name: "duration", title: "Duration (ISO 8601)", type: "string", description: "Optional, for example PT3M45S." }),
     defineField({ name: "artist", title: "Artist", type: "reference", to: [{ type: "artist" }], validation: (rule) => rule.required() }),

@@ -2,7 +2,7 @@ import { createClient } from "next-sanity";
 import type { PortableTextBlock } from "@portabletext/types";
 
 export type StreamLink = { label: string; url: string };
-export type Credit = { role: string; name: string };
+export type Track = { title: string; slug: string; spotifyUrl?: string; appleMusicUrl?: string; youtubeUrl?: string; lyrics?: PortableTextBlock[]; duration?: string };
 
 export type Artist = {
   name: string;
@@ -26,7 +26,7 @@ export type Release = {
   id: string;
   title: string;
   slug: string;
-  releaseType: "single" | "album" | "2-pack";
+  releaseType: "single" | "2-pack" | "ep" | "album";
   releaseDate: string;
   displayOrder?: number;
   coverArtUrl?: string;
@@ -37,8 +37,8 @@ export type Release = {
   youtubeUrl?: string;
   appleMusicUrl?: string;
   otherStreamingUrls?: StreamLink[];
-  credits?: Credit[];
   lyrics?: PortableTextBlock[];
+  tracks?: Track[];
   duration?: string;
   seoTitle?: string;
   seoDescription?: string;
@@ -89,10 +89,10 @@ const artistQuery = `*[_type == "artist" && slug.current == "akash-bhai"][0]{
 }`;
 
 const releaseProjection = `{
-  "id": _id, title, "slug": slug.current, "releaseType": select(releaseType in ["single", "album", "2-pack"] => releaseType, "single"), releaseDate, displayOrder,
+  "id": _id, title, "slug": slug.current, "releaseType": select(releaseType in ["single", "2-pack", "ep", "album"] => releaseType, "single"), releaseDate, displayOrder,
   "coverArtUrl": coverArt.asset->url, "coverArtAlt": coverArt.alt,
   description, featured, spotifyUrl, youtubeUrl, appleMusicUrl,
-  otherStreamingUrls[]{label, url}, credits[]{role, name}, lyrics, duration, seoTitle, seoDescription
+  otherStreamingUrls[]{label, url}, lyrics, tracks[]{title, "slug": slug.current, spotifyUrl, appleMusicUrl, youtubeUrl, lyrics, duration}, duration, seoTitle, seoDescription
 }`;
 
 export const releasesQuery = `*[_type == "release" && defined(slug.current) && releaseDate <= now()] | order(coalesce(displayOrder, 999) asc, releaseDate desc) ${releaseProjection}`;

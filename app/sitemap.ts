@@ -8,5 +8,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl.replace(/\/$/, "");
   const staticRoutes = ["/", "/music", "/about", "/contact", "/privacy"].map((path) => ({ url: `${base}${path}`, changeFrequency: "monthly" as const, priority: path === "/" ? 1 : 0.7 }));
   const releaseRoutes = releases.map((release) => ({ url: `${base}/music/${release.slug}`, lastModified: release.releaseDate, changeFrequency: "monthly" as const, priority: 0.8 }));
-  return [...staticRoutes, ...releaseRoutes];
+  const trackRoutes = releases.flatMap((release) => (release.tracks ?? []).map((track) => ({ url: `${base}/music/${release.slug}/tracks/${track.slug}`, lastModified: release.releaseDate, changeFrequency: "monthly" as const, priority: 0.7 })));
+  return [...staticRoutes, ...releaseRoutes, ...trackRoutes];
 }

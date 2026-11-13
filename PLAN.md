@@ -224,7 +224,6 @@ Each release page includes:
 - Streaming links.
 - Official video, if available.
 - Lyrics, if approved and supplied.
-- Credits, if available.
 - Related releases.
 
 ### 8.4 JYOT release page — P0
@@ -239,7 +238,6 @@ Initial featured release.
 - Official music video, if available.
 - Artist-approved lyrics.
 - Description / context.
-- Credits.
 - Share links.
 
 Suggested SEO title:
@@ -248,7 +246,7 @@ Suggested SEO title:
 
 Suggested meta description:
 
-`Listen to JYOT by Akash Bhai, released October 23, 2026. Explore the official song, lyrics, credits, and streaming links.`
+`Listen to JYOT by Akash Bhai, released October 23, 2026. Explore the official song, lyrics, and streaming links.`
 
 All metadata and links must be verified against actual artist-approved data before launch.
 
@@ -472,15 +470,16 @@ flowchart TD
 | `youtubeUrl` | URL |
 | `appleMusicUrl` | URL |
 | `otherStreamingUrls` | Array |
-| `credits` | Array |
 | `lyrics` | Optional rich text |
+| `tracks` | Ordered track list for 2-Packs, EPs, and Albums; each track has its own nested page |
 | `musicVideoUrl` | Optional URL |
 | `artist` | Reference |
 
 ### CMS validation
 
 - Artist name and release title required.
-- Release slug unique.
+- Release slug required.
+- A 2-Pack contains exactly two tracks.
 - Release date valid.
 - Cover artwork required.
 - Streaming URLs valid.
@@ -778,7 +777,7 @@ The site must be memorable to humans and unambiguous to search engines.
 1. Treat this file as the product source of truth.
 2. Do not change the locked direction: cinematic, dark, SEO-first, lean MVP.
 3. Do not add features outside the MVP without explicit approval.
-4. Do not invent artist biography, career milestones, press, awards, lyrics, credits, streaming URLs, or social profiles. Use placeholders until confirmed.
+4. Do not invent artist biography, career milestones, press, awards, lyrics, streaming URLs, or social profiles. Use placeholders until confirmed.
 5. Build reusable components and CMS-driven release content.
 6. Ensure SEO content is server-rendered or statically generated and visible in HTML.
 7. Ensure all links and CTAs work.
